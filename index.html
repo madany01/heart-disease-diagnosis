@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Heart Disease Detection</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/queries.css" />
+		<script src="./bundle.js" defer></script>
+	</head>
+
+	<body>
+		<header>diagnosis of heart disease</header>
+		<main>
+			<form>
+				<div class="input-ctr full-row">
+					<label for="age">age</label>
+					<input id="age" name="age" type="number" min="1" max="200" placeholder="40" inputmode="numeric" autofocus />
+				</div>
+
+				<div class="input-ctr">
+					<label for="bloodPressure">resting blood pressure (mm/hg)</label>
+					<input
+						id="bloodPressure"
+						name="rest_blood_pressure"
+						type="number"
+						min="1"
+						max="400"
+						inputmode="numeric"
+						placeholder="80"
+					/>
+				</div>
+
+				<div class="input-ctr">
+					<label for="maxHeartRate">max heart rate achieved</label>
+					<input
+						id="maxHeartRate"
+						name="max_heart_rate"
+						type="number"
+						min="1"
+						max="400"
+						inputmode="numeric"
+						placeholder="90"
+					/>
+				</div>
+
+				<div class="input-ctr">
+					<legend>fasting blood sugar above 120 mg/dl &quest;</legend>
+					<div class="radios-ctr">
+						<label>
+							<input type="radio" name="blood_sugar" value="TRUE" />
+							yes
+						</label>
+						<label>
+							<input type="radio" name="blood_sugar" value="FALSE" />
+							no
+						</label>
+						<label>
+							<input type="radio" name="blood_sugar" value="" checked />
+							missed
+						</label>
+					</div>
+				</div>
+
+				<div class="input-ctr">
+					<legend>exercise induced angina &quest;</legend>
+					<div class="radios-ctr">
+						<label>
+							<input type="radio" name="exercice_angina" value="yes" />
+							yes
+						</label>
+						<label>
+							<input type="radio" name="exercice_angina" value="no" />
+							no
+						</label>
+						<label>
+							<input type="radio" name="exercice_angina" value="" checked />
+							missed
+						</label>
+					</div>
+				</div>
+
+				<div class="input-ctr">
+					<label for="ChestPainType">chest pain type</label>
+					<select name="chest_pain_type" id="ChestPainType">
+						<option value="">missed</option>
+						<option value="asympt">asympt</option>
+						<option value="atyp_angina">atyp angina</option>
+						<option value="non_anginal">non-anginal</option>
+						<option value="typ_angina">typ angina</option>
+					</select>
+				</div>
+
+				<div class="input-ctr">
+					<label for="restElectro">resting electrocardiographic results</label>
+					<select name="rest_electro" id="restElectro">
+						<option value="">missed</option>
+						<option value="normal">normal</option>
+						<option value="left_vent_hyper">left vent hyper</option>
+						<option value="st_t_wave_abnormality">st_t wave abnormality</option>
+					</select>
+				</div>
+
+				<div class="input-ctr">
+					<legend>algorithm</legend>
+					<div class="radios-ctr">
+						<label>
+							<input type="radio" name="algorithm" value="id3" checked />
+							id3
+						</label>
+						<label>
+							<input type="radio" name="algorithm" value="bayes" />
+							bayes
+						</label>
+					</div>
+				</div>
+
+				<button type="submit">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						fill="currentColor"
+						class="bi bi-activity"
+						viewBox="0 0 16 16"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z"
+						/>
+					</svg>
+					diagnose
+				</button>
+			</form>
+
+			<div class="result negative">
+				<svg
+					class="result-icon"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="currentColor"
+					class="bi bi-heart-pulse-fill"
+					viewBox="0 0 16 16"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M1.475 9C2.702 10.84 4.779 12.871 8 15c3.221-2.129 5.298-4.16 6.525-6H12a.5.5 0 0 1-.464-.314l-1.457-3.642-1.598 5.593a.5.5 0 0 1-.945.049L5.889 6.568l-1.473 2.21A.5.5 0 0 1 4 9H1.475ZM.879 8C-2.426 1.68 4.41-2 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C11.59-2 18.426 1.68 15.12 8h-2.783l-1.874-4.686a.5.5 0 0 0-.945.049L7.921 8.956 6.464 5.314a.5.5 0 0 0-.88-.091L3.732 8H.88Z"
+					/>
+				</svg>
+			</div>
+		</main>
+	</body>
+</html>
