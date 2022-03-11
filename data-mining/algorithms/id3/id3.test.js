@@ -208,7 +208,9 @@ describe('id3', () => {
 		expect(result.decision).toBe(1)
 		expect(result.path).toEqual(['outlook', 'wind'])
 
-		const humidityThreshold = (0.72 + 0.87) / 2
+		const humidityThreshold = classifier.getRootNode().getAdjacentNodes().get('sunny').getNodeInfo().threshold
+		expect(humidityThreshold).toBeCloseTo((0.72 + 0.87) / 2, 9)
+
 		result = classifier.classify({
 			outlook: 'sunny',
 			humidity: humidityThreshold - 1e-8,

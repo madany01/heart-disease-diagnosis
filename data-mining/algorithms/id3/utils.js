@@ -80,7 +80,7 @@ function calcContinuousThresholdValue(valuesArray, decisions) {
 			if (idx === 0) return null
 
 			const threshold = (sortedUniqueValues[idx] + sortedUniqueValues[idx - 1]) / 2
-			const [infoGain] = calcMatrixInfoGain(transpose([valuesArray.map(value => value > threshold), decisions]))
+			const [infoGain] = calcMatrixInfoGain(transpose([valuesArray.map(value => value <= threshold), decisions]))
 
 			if (best === null || infoGain > best.infoGain) return { threshold, infoGain }
 
