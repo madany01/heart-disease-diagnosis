@@ -29,7 +29,7 @@ function fillMissingValues(array) {
 	})
 }
 
-function getAttributeValuesSummary(array2d) {
+function getAttributeValuesFrequencies(array2d) {
 	/*
 	[
 		{attr1V1: [n, p], attr1V2: [n, p], attr1V3: [n, p]},
@@ -55,14 +55,14 @@ function calcEntropy(n, p) {
 function calcMatrixInfoGain(array2d) {
 	const numSamples = array2d.length
 
-	const attributeValuesSummary = getAttributeValuesSummary(array2d)
+	const attributeValuesFreqs = getAttributeValuesFrequencies(array2d)
 
 	const dataEntropy = calcEntropy(
-		attributeValuesSummary.at(-1).get(0)[0],
-		attributeValuesSummary.at(-1).get(1)[1],
+		attributeValuesFreqs.at(-1).get(0)[0],
+		attributeValuesFreqs.at(-1).get(1)[1],
 	)
 
-	const infoEntropies = attributeValuesSummary
+	const infoEntropies = attributeValuesFreqs
 		.slice(0, -1)
 		.map(attrMap => (
 			[...attrMap.values()].reduce((acc, [n, p]) => acc + (calcEntropy(n, p) * (n + p)) / numSamples, 0)
@@ -93,5 +93,5 @@ module.exports = {
 	calcEntropy,
 	calcMatrixInfoGain,
 	fillMissingValues,
-	getAttributeValuesSummary,
+	getAttributeValuesFrequencies,
 }
