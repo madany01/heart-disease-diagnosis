@@ -1,6 +1,6 @@
 const { createNode, createLeafNode } = require('./graph')
 const { partition2dArray, transpose } = require('../../array2d-utils')
-const { getAttributeValuesSummary, calcMatrixInfoGain, calcContinuousThresholdValue } = require('./utils')
+const { getAttributeValuesFrequencies, calcMatrixInfoGain, calcContinuousThresholdValue } = require('./utils')
 
 function calcDecisionsFrequency(data) {
 	return data
@@ -105,7 +105,7 @@ function constructId3Tree({ data, columnNames, continuousAttributes }) {
 		// base cases: only 1 attribute (+ decision)
 		const node = createNode(nodeInfo)
 
-		const [attrValuesMap] = getAttributeValuesSummary(discreteData)
+		const [attrValuesMap] = getAttributeValuesFrequencies(discreteData)
 
 		attrValuesMap.forEach(([n, p], attrValue) => {
 			node.addAdjacentNode(
