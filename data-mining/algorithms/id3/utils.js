@@ -52,7 +52,7 @@ function calcEntropy(array) {
 	return -array.reduce((acc, v) => (acc + (v === 0 ? 0 : (v / sum) * Math.log2(v / sum))), 0)
 }
 
-function calcMatrixInfoGain(array2d) {
+function calcMatrixGainRatio(array2d) {
 	const numSamples = array2d.length
 
 	const attributeValuesFreqs = getAttributeValuesFrequencies(array2d)
@@ -68,7 +68,14 @@ function calcMatrixInfoGain(array2d) {
 			[...attrMap.values()].reduce((acc, [n, p]) => acc + (calcEntropy([n, p]) * (n + p)) / numSamples, 0)
 		))
 
-	return infoEntropies.map(ie => dataEntropy - ie)
+	const infoGains = infoEntropies.map(ie => dataEntropy - ie)
+
+	const splitInfos = attributeValuesFreqs
+		.slice(0, -1)
+		.map(attrMap => [...attrMap.values()].map(([n, p]) => n + p))
+		.map(attrValuesCntArray => calcEntropy(attrValuesCntArray))
+
+	return infoGains.map((g, idx) => g / splitInfos[idx])
 }
 
 function calcContinuousThresholdValue(valuesArray, decisions) {
@@ -81,9 +88,9 @@ function calcContinuousThresholdValue(valuesArray, decisions) {
 			if (idx === 0) return null
 
 			const threshold = (sortedUniqueValues[idx] + sortedUniqueValues[idx - 1]) / 2
-			const [infoGain] = calcMatrixInfoGain(transpose([valuesArray.map(value => value <= threshold), decisions]))
+			const [gainRatio] = calcMatrixGainRatio(transpose([valuesArray.map(value => value <= threshold), decisions]))
 
-			if (best === null || infoGain > best.infoGain) return { threshold, infoGain }
+			if (best === null || gainRatio > best.gainRatio) return { threshold, gainRatio }
 
 			return best
 		}, null)
@@ -92,7 +99,7 @@ function calcContinuousThresholdValue(valuesArray, decisions) {
 module.exports = {
 	calcContinuousThresholdValue,
 	calcEntropy,
-	calcMatrixInfoGain,
+	calcMatrixGainRatio,
 	fillMissingValues,
 	getAttributeValuesFrequencies,
 }

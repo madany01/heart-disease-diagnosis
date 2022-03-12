@@ -104,15 +104,15 @@ describe('id3', () => {
 		expect(classifier.getTreeNodes().size).toBe(8)
 
 		expect(rootNode.getNodeInfo().attribute).toEqual('outlook')
-		expect(rootNode.getNodeInfo().infoGain).toBeCloseTo(0.247)
+		expect(rootNode.getNodeInfo().gainRatio).toBeCloseTo(0.156)
 
 		const humidityNode = rootNode.getAdjacentNodes().get('sunny')
 		expect(humidityNode.getNodeInfo().attribute).toEqual('humidity')
-		expect(humidityNode.getNodeInfo().infoGain).toBeCloseTo(0.971)
+		expect(humidityNode.getNodeInfo().gainRatio).toBeCloseTo(1.000)
 
 		const windNode = rootNode.getAdjacentNodes().get('rain')
 		expect(windNode.getNodeInfo().attribute).toEqual('wind')
-		expect(windNode.getNodeInfo().infoGain).toBeCloseTo(0.971)
+		expect(windNode.getNodeInfo().gainRatio).toBeCloseTo(1.000)
 
 		const outlookLeaf = rootNode.getAdjacentNodes().get('overcast')
 		expect(outlookLeaf.isLeaf()).toBe(true)
@@ -168,62 +168,32 @@ describe('id3', () => {
 		})
 	})
 
-	it('works with continuous and discrete values', () => {
+	it('chooses the correct threshold', () => {
 		const data = [
-			['outlook', 'temperature', 'humidity', 'wind', 'decision'],
-			['sunny',	'hot', 	0.9, 'false', 0],
-			['sunny',	'hot', 	0.87, 'true', 0],
-			['overcast',	'hot', 	0.93, 'false', 1],
-			['rain',	'mild', 	0.89, 'false', 1],
-			['rain',	'cool', 	0.80, 'false', 1],
-			['rain',	'cool', 	0.59, 'true', 0],
-			['overcast',	'cool', 	0.77, 'true', 1],
-			['sunny',	'mild', 	0.91, 'false', 0],
-			['sunny',	'cool', 	0.68, 'false', 1],
-			['rain',	'mild', 	0.84, 'false', 1],
-			['sunny',	'mild', 	0.72, 'true', 1],
-			['overcast',	'mild', 	0.49, 'true', 1],
-			['overcast',	'hot', 	0.74, 'false', 1],
-			['rain',	'mild', 	0.86, 'true', 0],
+			['A', 'decision'],
+			[0, 0],
+			[5, 0],
+			[10, 1],
+			[15, 0],
+			[20, 0],
+			[25, 1],
+			[30, 0],
+			[35, 0],
+			[40, 0],
+			[50, 1],
+			[55, 1],
+			[60, 1],
+			[65, 1],
+			[70, 0],
+			[75, 0],
+			[80, 1],
+			[85, 1],
+			[90, 1],
+			[95, 1],
+			[100, 1],
 		]
-		const classifier = createId3Classifier(data, ['humidity'])
-
-		let result = classifier.classify({
-			outlook: 'overcast',
-		})
-		expect(result.decision).toBe(1)
-		expect(result.path).toEqual(['outlook'])
-
-		result = classifier.classify({
-			outlook: 'rain',
-			wind: 'true',
-		})
-		expect(result.decision).toBe(0)
-		expect(result.path).toEqual(['outlook', 'wind'])
-
-		result = classifier.classify({
-			outlook: 'rain',
-			wind: 'false',
-		})
-		expect(result.decision).toBe(1)
-		expect(result.path).toEqual(['outlook', 'wind'])
-
-		const humidityThreshold = classifier.getRootNode().getAdjacentNodes().get('sunny').getNodeInfo().threshold
-		expect(humidityThreshold).toBeCloseTo((0.72 + 0.87) / 2, 9)
-
-		result = classifier.classify({
-			outlook: 'sunny',
-			humidity: humidityThreshold - 1e-8,
-		})
-
-		expect(result.decision).toBe(1)
-		expect(result.path).toEqual(['outlook', 'humidity'])
-
-		result = classifier.classify({
-			outlook: 'sunny',
-			humidity: humidityThreshold + 1e-8,
-		})
-		expect(result.decision).toBe(0)
-		expect(result.path).toEqual(['outlook', 'humidity'])
+		const classifier = createId3Classifier(data, ['A'])
+		expect(classifier.getRootNode().getNodeInfo().gainRatio).toBeCloseTo(0.3261045752)
+		expect(classifier.getRootNode().getNodeInfo().threshold).toBe(77.5)
 	})
 })

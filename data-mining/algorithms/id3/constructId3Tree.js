@@ -1,6 +1,6 @@
 const { createNode, createLeafNode } = require('./graph')
 const { partition2dArray, transpose } = require('../../array2d-utils')
-const { getAttributeValuesFrequencies, calcMatrixInfoGain, calcContinuousThresholdValue } = require('./utils')
+const { getAttributeValuesFrequencies, calcMatrixGainRatio, calcContinuousThresholdValue } = require('./utils')
 
 function calcDecisionsFrequency(data) {
 	return data
@@ -83,20 +83,20 @@ function constructId3Tree({ data, columnNames, continuousAttributes }) {
 		continuousAttributes,
 	)
 
-	const attributesInfoGain = calcMatrixInfoGain(discreteData)
-	const maxInfoGainIdx = attributesInfoGain.reduce(
-		(curMaxIdx, curInfoGain, idx, infoGains) => (curInfoGain > infoGains[curMaxIdx] ? idx : curMaxIdx),
+	const attributesGainRatio = calcMatrixGainRatio(discreteData)
+	const maxGainRatioIdx = attributesGainRatio.reduce(
+		(curMaxIdx, curGainRatio, idx, gainRatios) => (curGainRatio > gainRatios[curMaxIdx] ? idx : curMaxIdx),
 		0,
 	)
 
 	Object.assign(nodeInfo, {
-		infoGain: attributesInfoGain[maxInfoGainIdx],
-		attribute: columnNames[maxInfoGainIdx],
+		gainRatio: attributesGainRatio[maxGainRatioIdx],
+		attribute: columnNames[maxGainRatioIdx],
 	})
 
-	if (continuousAttributes.includes(columnNames[maxInfoGainIdx])) {
+	if (continuousAttributes.includes(columnNames[maxGainRatioIdx])) {
 		nodeInfo.isContinuous = true
-		nodeInfo.threshold = thresholds.get(columnNames[maxInfoGainIdx])
+		nodeInfo.threshold = thresholds.get(columnNames[maxGainRatioIdx])
 	} else {
 		nodeInfo.isContinuous = false
 	}
@@ -121,12 +121,12 @@ function constructId3Tree({ data, columnNames, continuousAttributes }) {
 		return node
 	}
 
-	const columnsToSend = columnNames.filter((_, idx) => idx !== maxInfoGainIdx)
+	const columnsToSend = columnNames.filter((_, idx) => idx !== maxGainRatioIdx)
 
 	let dataToPartition
 	if (nodeInfo.isContinuous) {
 		dataToPartition = transpose(data)
-		dataToPartition[maxInfoGainIdx] = dataToPartition[maxInfoGainIdx].map(value => value <= nodeInfo.threshold)
+		dataToPartition[maxGainRatioIdx] = dataToPartition[maxGainRatioIdx].map(value => value <= nodeInfo.threshold)
 		dataToPartition = transpose(dataToPartition)
 	} else {
 		dataToPartition = data
@@ -134,7 +134,7 @@ function constructId3Tree({ data, columnNames, continuousAttributes }) {
 
 	const node = createNode(nodeInfo)
 
-	partition2dArray(dataToPartition, maxInfoGainIdx).forEach((partitionedData, colValueName) => {
+	partition2dArray(dataToPartition, maxGainRatioIdx).forEach((partitionedData, colValueName) => {
 		node.addAdjacentNode(
 			colValueName,
 			constructId3Tree({
