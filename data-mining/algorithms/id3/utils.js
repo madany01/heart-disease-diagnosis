@@ -47,9 +47,9 @@ function getAttributeValuesSummary(array2d) {
 		}, new Map()))
 }
 
-function calcEntropy(n, p) {
-	if (p === 0 || n === 0) return 0
-	return -(p / (p + n)) * Math.log2(p / (p + n)) - (n / (p + n)) * Math.log2(n / (p + n))
+function calcEntropy(array) {
+	const sum = array.reduce((acc, v) => acc + v, 0)
+	return -array.reduce((acc, v) => (acc + (v === 0 ? 0 : (v / sum) * Math.log2(v / sum))), 0)
 }
 
 function calcMatrixInfoGain(array2d) {
@@ -57,19 +57,20 @@ function calcMatrixInfoGain(array2d) {
 
 	const attributeValuesSummary = getAttributeValuesSummary(array2d)
 
-	const dataEntropy = calcEntropy(
+	const dataEntropy = calcEntropy([
 		attributeValuesSummary.at(-1).get(0)[0],
 		attributeValuesSummary.at(-1).get(1)[1],
-	)
+	])
 
 	const infoEntropies = attributeValuesSummary
 		.slice(0, -1)
 		.map(attrMap => (
-			[...attrMap.values()].reduce((acc, [n, p]) => acc + (calcEntropy(n, p) * (n + p)) / numSamples, 0)
+			[...attrMap.values()].reduce((acc, [n, p]) => acc + (calcEntropy([n, p]) * (n + p)) / numSamples, 0)
 		))
 
 	return infoEntropies.map(ie => dataEntropy - ie)
 }
+
 function calcContinuousThresholdValue(valuesArray, decisions) {
 	const sortedUniqueValues = [...new Set(valuesArray)].sort((a, b) => a - b)
 
