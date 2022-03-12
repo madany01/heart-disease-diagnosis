@@ -88,7 +88,9 @@ function calcContinuousThresholdValue(valuesArray, decisions) {
 			if (idx === 0) return null
 
 			const threshold = (sortedUniqueValues[idx] + sortedUniqueValues[idx - 1]) / 2
-			const [gainRatio] = calcMatrixGainRatio(transpose([valuesArray.map(value => value <= threshold), decisions]))
+			const [gainRatio] = calcMatrixGainRatio(
+				transpose([valuesArray.map(value => value <= threshold), decisions]),
+			)
 
 			if (best === null || gainRatio > best.gainRatio) return { threshold, gainRatio }
 
