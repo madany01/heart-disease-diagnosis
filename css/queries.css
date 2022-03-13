@@ -1,11 +1,11 @@
 @media screen and (max-width: calc(800em/ 16)) {
-	main {
+	.heart-diagnosis--main {
 		width: 100%;
 	}
 }
 
 @media screen and (max-width: calc(764em/ 16)) {
-	.input-ctr {
+	.heart-diagnosis-from .input-ctr {
 		width: 100%;
 	}
 }
@@ -14,7 +14,7 @@
 	html {
 		font-size: 50%;
 	}
-	.radios-ctr {
+	.heart-diagnosis-from .radios-ctr {
 		flex-direction: column;
 		align-items: start;
 		gap: 0.8rem;

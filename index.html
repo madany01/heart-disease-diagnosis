@@ -11,9 +11,10 @@
 	</head>
 
 	<body>
-		<header>diagnosis of heart disease</header>
-		<main>
-			<form>
+		<header class="heart-diagnosis--header">diagnosis of heart disease</header>
+
+		<div class="heart-diagnosis--main">
+			<form class="heart-diagnosis-from">
 				<div class="input-ctr full-row">
 					<label for="age">age</label>
 					<input id="age" name="age" type="number" min="1" max="200" placeholder="40" inputmode="numeric" autofocus />
@@ -134,9 +135,9 @@
 				</button>
 			</form>
 
-			<div class="result negative">
+			<div class="heart-diagnosis-result negative">
 				<svg
-					class="result-icon"
+					class="icon"
 					xmlns="http://www.w3.org/2000/svg"
 					fill="currentColor"
 					class="bi bi-heart-pulse-fill"
@@ -148,6 +149,6 @@
 					/>
 				</svg>
 			</div>
-		</main>
+		</div>
 	</body>
 </html>
