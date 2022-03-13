@@ -75,7 +75,7 @@ function trainNaiveBayesClassifier([attrNames, ...data], continuosAttributes = [
 	let { attributesFrequencies: discreteAttributesFreqs } = result
 
 	discreteAttributesFreqs
-		.filter(attrMap => !attrMap.has(null))
+		.filter(attrMap => attrMap.has(null))
 		.forEach(attrMap => {
 			attrMap.delete(null)
 		})
