@@ -34,7 +34,7 @@ body {
 	background-image: linear-gradient(to bottom right, #0b4c85, #003232);
 }
 
-header {
+.heart-diagnosis--header {
 	padding: 1.2rem;
 	font-size: 2.4rem;
 	font-weight: 700;
@@ -43,7 +43,7 @@ header {
 	color: #e7f5ff;
 }
 
-main {
+.heart-diagnosis--main {
 	flex: 1;
 	margin: 0 auto;
 	max-width: 80rem;
@@ -54,7 +54,7 @@ main {
 	margin-bottom: 3.2rem;
 }
 
-form {
+.heart-diagnosis-from {
 	padding: 1.6rem;
 	border-radius: 0.8rem;
 	background-color: #0000006b;
@@ -64,43 +64,43 @@ form {
 	row-gap: 4rem;
 }
 
-.input-ctr {
+.heart-diagnosis-from .input-ctr {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
 	width: 50%;
 }
 
-.full-row {
+.heart-diagnosis-from .full-row {
 	width: 100%;
 }
 
-.radios-ctr {
+.heart-diagnosis-from .radios-ctr {
 	display: flex;
 	align-items: center;
 	gap: 6.4rem;
 }
 
-label,
-legend {
+.heart-diagnosis-from label,
+.heart-diagnosis-from legend {
 	font-weight: 600;
 	font-size: 1.5rem;
 	color: #b5b5b5;
 }
 
-.radios-ctr label {
+.heart-diagnosis-from .radios-ctr label {
 	font-size: 1.5rem;
 	font-weight: 400;
 	color: #e9f1f7;
 }
 
-label::first-letter,
-legend::first-letter {
+.heart-diagnosis-from label::first-letter,
+.heart-diagnosis-from legend::first-letter {
 	text-transform: capitalize;
 }
 
-input[type='number'],
-select {
+.heart-diagnosis-from input[type='number'],
+.heart-diagnosis-from select {
 	max-width: fit-content;
 	padding: 0.8rem 1.6rem;
 	border-radius: 0.8rem;
@@ -111,11 +111,11 @@ select {
 	border: 0.1rem solid #0b7285;
 }
 
-option {
+.heart-diagnosis-from option {
 	background-color: #333;
 }
 
-button[type='submit'] {
+.heart-diagnosis-from button[type='submit'] {
 	justify-self: end;
 	display: flex;
 	align-items: center;
@@ -129,7 +129,7 @@ button[type='submit'] {
 	align-self: end;
 }
 
-.result {
+.heart-diagnosis-result {
 	align-self: center;
 
 	padding: 1.2rem 3.2rem;
@@ -153,32 +153,35 @@ button[type='submit'] {
 
 	transition: all 0.5s;
 }
-.result.show {
+
+.heart-diagnosis-result.show {
 	opacity: 1;
 	visibility: visible;
 	pointer-events: all;
 }
 
-.result.positive {
-	color: springgreen;
-}
-.result.negative {
+.heart-diagnosis-result.positive {
 	color: tomato;
 }
-.result.positive::after {
+
+.heart-diagnosis-result.negative {
+	color: springgreen;
+}
+
+.heart-diagnosis-result.positive::after {
 	content: 'positive';
 }
 
-.result.negative::after {
+.heart-diagnosis-result.negative::after {
 	content: 'negative';
 }
 
-.result-icon {
+.heart-diagnosis-result .icon {
 	width: 2.2rem;
 	height: 2.2rem;
 }
 
-.result-icon.animate {
+.heart-diagnosis-result .icon.animate {
 	animation: animate-grow 0.6s ease-in-out 0s 4 alternate;
 }
 

@@ -19,9 +19,9 @@ trainData.unshift(attributes.slice())
 const id3Classifier = createId3Classifier(trainData, continuosAttributes)
 const bayesClassifier = createBayesClassifier(trainData, continuosAttributes)
 
-const form = document.querySelector('form')
-const resultEl = document.querySelector('.result')
-const resultIcon = resultEl.querySelector('.result-icon')
+const form = document.querySelector('.heart-diagnosis-from')
+const resultEl = document.querySelector('.heart-diagnosis-result')
+const resultIcon = resultEl.querySelector('.heart-diagnosis-result .icon')
 
 resultIcon.addEventListener('animationend', () => {
 	resultIcon.classList.remove('animate')
