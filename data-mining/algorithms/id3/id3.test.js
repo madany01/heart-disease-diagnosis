@@ -12,6 +12,37 @@ describe('id3', () => {
 			['hot', 1],
 		]
 		const classifier = createId3Classifier(data)
+
+		const rootNode = classifier.getRootNode()
+		expect(rootNode.getNodeInfo()).toMatchObject({
+			attribute: 'outlook',
+			decisionsFrequency: [3, 3],
+		})
+
+		const coldLeaf = rootNode.getAdjacentNodes().get('cold')
+		expect(coldLeaf.isLeaf()).toBe(true)
+		expect(coldLeaf.getNodeInfo()).toMatchObject({
+			decisionsFrequency: [1, 2],
+			mostFrequentDecision: 1,
+			decision: 1,
+		})
+
+		const hotLeaf = rootNode.getAdjacentNodes().get('hot')
+		expect(hotLeaf.isLeaf()).toBe(true)
+		expect(hotLeaf.getNodeInfo()).toMatchObject({
+			decisionsFrequency: [0, 1],
+			mostFrequentDecision: 1,
+			decision: 1,
+		})
+
+		const coolLeaf = rootNode.getAdjacentNodes().get('cool')
+		expect(coolLeaf.isLeaf()).toBe(true)
+		expect(coolLeaf.getNodeInfo()).toMatchObject({
+			decisionsFrequency: [2, 0],
+			mostFrequentDecision: 0,
+			decision: 0,
+		})
+
 		let result = classifier.classify({ outlook: 'cold' })
 		expect(result.decision).toBe(1)
 		expect(result.path).toEqual(['outlook'])

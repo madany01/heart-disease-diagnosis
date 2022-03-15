@@ -123,26 +123,6 @@ function constructId3Tree({ data, columnNames, continuousAttributes }) {
 		nodeInfo.isContinuous = false
 	}
 
-	if (discreteData[0].length === 2) {
-		// base cases: only 1 attribute (+ decision)
-		const node = createNode(nodeInfo)
-
-		const [attrValuesMap] = getAttributeValuesFrequencies(discreteData)
-
-		attrValuesMap.forEach(([n, p], attrValue) => {
-			node.addAdjacentNode(
-				attrValue,
-				createLeafNode({
-					decisionsFrequency: [n, p],
-					mostFrequentDecision: n > p ? 0 : 1,
-					decision: n > p ? 0 : 1,
-				}),
-			)
-		})
-
-		return node
-	}
-
 	const columnsToSend = columnNames.filter((_, idx) => idx !== maxGainRatioIdx)
 
 	let dataToPartition
