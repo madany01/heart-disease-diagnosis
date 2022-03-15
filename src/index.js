@@ -1,11 +1,14 @@
-import createId3Classifier from '../data-mining/algorithms/id3'
 import prepareData from '../data-mining/prepareData'
+import { randomShuffle, splitData } from '../data-mining/data-utils'
+
+import createId3Classifier from '../data-mining/algorithms/id3'
 import createBayesClassifier from '../data-mining/algorithms/bayes'
+
 import dataset from '../data-mining/heart_disease_male.csv'
 
 const continuosAttributes = ['age', 'rest_blood_pressure', 'max_heart_rate']
 
-const { data: trainData, attributes } = prepareData({
+const { data: originalData, attributes } = prepareData({
 	data: dataset,
 	continuosAttributes,
 	decisionAttribute: 'disease',
@@ -14,6 +17,11 @@ const { data: trainData, attributes } = prepareData({
 	renameDecisionTo: 'decision',
 })
 
+// shuffle and split to match the reports
+
+const shuffledData = randomShuffle(originalData, 1)
+
+const [trainData] = splitData(shuffledData, 0.30)
 trainData.unshift(attributes.slice())
 
 const id3Classifier = createId3Classifier(trainData, continuosAttributes)
