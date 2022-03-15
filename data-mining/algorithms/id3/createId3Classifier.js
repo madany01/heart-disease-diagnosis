@@ -1,6 +1,18 @@
 function createId3Classifier({ rootNode, continuousAttributes }) {
 	const nodes = getAllTreeNodes(rootNode)
 
+	function objectMissAttribute(object, attribute, node) {
+		if (!(attribute in object)) return true
+
+		const nodeInfo = node.getNodeInfo()
+		const adjacentNodes = node.getAdjacentNodes()
+		const attributeValue = object[attribute]
+
+		if (!nodeInfo.isContinuous) return !adjacentNodes.has(attributeValue)
+
+		return Number.isFinite(attributeValue)
+	}
+
 	function classify(object) {
 		let node = rootNode
 		const path = []
@@ -17,20 +29,14 @@ function createId3Classifier({ rootNode, continuousAttributes }) {
 			const { attribute } = nodeInfo
 			path.push(attribute)
 
-			if (!(attribute in object) || object[attribute] === null) {
+			if (objectMissAttribute(object, attribute, node)) {
 				decision = nodeInfo.mostFrequentDecision
 				break
 			}
 
 			const edge = nodeInfo.isContinuous ? object[attribute] <= nodeInfo.threshold : object[attribute]
 
-			const adjacentNodes = node.getAdjacentNodes()
-			if (!adjacentNodes.has(edge)) {
-				decision = nodeInfo.mostFrequentDecision
-				break
-			}
-
-			node = adjacentNodes.get(edge)
+			node = node.getAdjacentNodes().get(edge)
 		}
 
 		return { decision, path }

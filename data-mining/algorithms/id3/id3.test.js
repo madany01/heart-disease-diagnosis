@@ -196,4 +196,31 @@ describe('id3', () => {
 		expect(classifier.getRootNode().getNodeInfo().gainRatio).toBeCloseTo(0.3261045752)
 		expect(classifier.getRootNode().getNodeInfo().threshold).toBe(77.5)
 	})
+
+	it('classifies object even when has missing values', () => {
+		const data = [
+			['outlook', 'temperature', 'humidity', 'wind', 'decision'],
+			['sunny', 'hot', 'high', 'weak', 0],
+			['sunny', 'hot', 'high', 'strong', 0],
+			['overcast', 'hot', 'high', 'weak', 1],
+			['rain', 'mild', 'high', 'weak', 1],
+			['rain', 'cool', 'normal', 'weak', 1],
+			['rain', 'cool', 'normal', 'strong', 0],
+			['overcast', 'cool', 'normal', 'strong', 1],
+			['sunny', 'mild', 'high', 'weak', 0],
+			['sunny', 'cool', 'normal', 'weak', 1],
+			['rain', 'mild', 'normal', 'weak', 1],
+			['sunny', 'mild', 'normal', 'strong', 1],
+			['overcast', 'mild', 'high', 'strong', 1],
+			['overcast', 'hot', 'normal', 'weak', 1],
+			['rain', 'mild', 'high', 'strong', 0],
+		]
+		const classifier = createId3Classifier(data)
+		expect(classifier.classify({ outlook: 'sunny' })).toEqual({
+			decision: 0, path: ['outlook', 'humidity'],
+		})
+		expect(classifier.classify({ outlook: 'sunny', humidity: 'nonExistVal' })).toEqual({
+			decision: 0, path: ['outlook', 'humidity'],
+		})
+	})
 })
