@@ -1,6 +1,6 @@
 const { createNode, createLeafNode } = require('./graph')
 const { partition2dArray, transpose } = require('../../array2d-utils')
-const { getAttributeValuesFrequencies, calcMatrixGainRatio, calcContinuousThresholdValue } = require('./utils')
+const { calcMatrixGainRatio, calcContinuousThresholdValue, fillMissingValues } = require('./utils')
 
 function calcDecisionsFrequency(data) {
 	return data
@@ -72,17 +72,21 @@ function transformContinuousAttributesToDiscrete(data, columnNames, continuousAt
 	return { thresholds, discreteData }
 }
 
-function constructId3Tree({ data, columnNames, continuousAttributes }) {
-	const decisionsFreq = calcDecisionsFrequency(data)
+function constructId3Tree({
+	data: dataArg,
+	columnNames: columnNamesArg,
+	continuousAttributes: continuousAttributesArg,
+}) {
+	const { data, columnNames } = excludeRedundantAttributes(dataArg, columnNamesArg)
+	const continuousAttributes = continuousAttributesArg.filter(name => columnNames.includes(name))
+
+	const decisionsFreq = calcDecisionsFrequency(dataArg)
 	const mostFrequentDecision = decisionsFreq[0] > decisionsFreq[1] ? 0 : 1
 
 	const nodeInfo = {
 		decisionsFrequency: decisionsFreq,
 		mostFrequentDecision,
 	}
-
-	;({ data, columnNames } = excludeRedundantAttributes(data, columnNames))
-	continuousAttributes = continuousAttributes.filter(name => columnNames.includes(name))
 
 	if (decisionsFreq.some(freq => freq === 0) || data[0].length === 1) {
 		// base cases: all decision values are the same, or the data has no attributes
