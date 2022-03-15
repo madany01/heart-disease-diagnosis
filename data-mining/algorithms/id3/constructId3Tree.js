@@ -25,16 +25,19 @@ function getValuesFrequencies(array) {
 		}, new Map())
 }
 
-function getIndexesOfColumnsWithIdenticalValues(data) {
+function getIndexesOfRedundantAttributes(data) {
 	return transpose(data)
-		.map((row, idx) => [row, idx])
-		.filter(([row]) => new Set(row).size === 1)
+		.slice(0, -1)
+		.map((col, idx) => [col, idx])
+		.filter(([col]) => {
+			const uniqueValues = new Set(col)
+			return uniqueValues.size === 1 || (uniqueValues.size === 2 && uniqueValues.has(null))
+		})
 		.map(([, origIdx]) => origIdx)
 }
 
 function excludeRedundantAttributes(data, columnNames) {
-	const redundantColIndexes = getIndexesOfColumnsWithIdenticalValues(data)
-		.filter(idx => idx !== columnNames.length - 1)
+	const redundantColIndexes = getIndexesOfRedundantAttributes(data)
 
 	if (!redundantColIndexes.length) return { data, columnNames }
 
@@ -80,7 +83,7 @@ function constructId3Tree({
 	const { data, columnNames } = excludeRedundantAttributes(dataArg, columnNamesArg)
 	const continuousAttributes = continuousAttributesArg.filter(name => columnNames.includes(name))
 
-	const decisionsFreq = calcDecisionsFrequency(dataArg)
+	const decisionsFreq = calcDecisionsFrequency(data)
 	const mostFrequentDecision = decisionsFreq[0] > decisionsFreq[1] ? 0 : 1
 
 	const nodeInfo = {
@@ -94,8 +97,10 @@ function constructId3Tree({
 		return createLeafNode(Object.assign(nodeInfo, { decision: mostFrequentDecision }))
 	}
 
+	const dataNoMissing = transpose(transpose(data).map(col => fillMissingValues(col)))
+
 	const { discreteData, thresholds } = transformContinuousAttributesToDiscrete(
-		data,
+		dataNoMissing,
 		columnNames,
 		continuousAttributes,
 	)
@@ -129,14 +134,9 @@ function constructId3Tree({
 
 	const columnsToSend = columnNames.filter((_, idx) => idx !== maxGainRatioIdx)
 
-	let dataToPartition
-	if (nodeInfo.isContinuous) {
-		dataToPartition = transpose(data)
-		dataToPartition[maxGainRatioIdx] = dataToPartition[maxGainRatioIdx].map(value => value <= nodeInfo.threshold)
-		dataToPartition = transpose(dataToPartition)
-	} else {
-		dataToPartition = data
-	}
+	let dataToPartition = transpose(data)
+	dataToPartition[maxGainRatioIdx] = transpose(discreteData)[maxGainRatioIdx]
+	dataToPartition = transpose(dataToPartition)
 
 	const node = createNode(nodeInfo)
 

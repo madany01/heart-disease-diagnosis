@@ -306,4 +306,20 @@ describe('id3', () => {
 			path: ['outlook', 'wind'],
 		})
 	})
+
+	it('works with missing values in data', () => {
+		const data = [
+			['redun1', 'redun2', 'outlook', 'decision'],
+			['v', null, 'sunny', 1],
+			['v', null, 'sunny', 1],
+			['v', null, 'cold', 0],
+			['v', null, null, 0],
+			['v', null, 'cold', 0],
+		]
+		const classifier = createId3Classifier(data)
+		expect(classifier.getTreeNodes().size).toBe(3)
+		const nodeInfo = classifier.getRootNode().getNodeInfo()
+		expect(nodeInfo.attribute).toBe('outlook')
+		expect([...nodeInfo.attributeValuesFrequencies.values()].reduce((acc, v) => acc + v, 0)).toBe(5)
+	})
 })

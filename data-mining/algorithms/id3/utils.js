@@ -10,6 +10,8 @@ function fillMissingValues(array) {
 			freqMap.set(value, preFreq + 1)
 		})
 
+	if (freqMap.size === 0) return array
+
 	const freqArray = [...freqMap.entries()]
 
 	const numNonMissingValues = freqArray.reduce((acc, [, freq]) => acc + freq, 0)
