@@ -35,7 +35,7 @@ const { data: originalData, attributes } = prepareData({
 
 const shuffledData = randomShuffle(originalData, 1)
 
-const [trainData, testData] = splitData(shuffledData, 0.03)
+const [trainData, testData] = splitData(shuffledData, 0.30)
 trainData.unshift(attributes.slice())
 testData.unshift(attributes.slice())
 
