@@ -29,12 +29,13 @@ function createId3Classifier({ rootNode, continuousAttributes }) {
 			const { attribute } = nodeInfo
 			path.push(attribute)
 
-			if (objectMissAttribute(object, attribute, node)) {
-				decision = nodeInfo.mostFrequentDecision
-				break
-			}
+			let edge
 
-			const edge = nodeInfo.isContinuous ? object[attribute] <= nodeInfo.threshold : object[attribute]
+			if (objectMissAttribute(object, attribute, node)) {
+				edge = nodeInfo.mostFrequentAttributeValue
+			} else {
+				edge = nodeInfo.isContinuous ? object[attribute] <= nodeInfo.threshold : object[attribute]
+			}
 
 			node = node.getAdjacentNodes().get(edge)
 		}

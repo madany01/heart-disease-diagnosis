@@ -14,6 +14,17 @@ function calcDecisionsFrequency(data) {
 		)
 }
 
+function getValuesFrequencies(array) {
+	return array
+		.reduce((map, value) => {
+			if (!map.has(value)) map.set(value, 0)
+
+			map.set(value, map.get(value) + 1)
+
+			return map
+		}, new Map())
+}
+
 function getIndexesOfColumnsWithIdenticalValues(data) {
 	return transpose(data)
 		.map((row, idx) => [row, idx])
@@ -89,9 +100,18 @@ function constructId3Tree({ data, columnNames, continuousAttributes }) {
 		0,
 	)
 
+	const attributeValuesFrequencies = getValuesFrequencies(transpose(discreteData)[maxGainRatioIdx])
+	const { value: mostFrequentAttributeValue } = [...attributeValuesFrequencies.entries()]
+		.reduce((best, [value, freq]) => {
+			if (best === null || freq > best.freq) return { value, freq }
+			return best
+		}, null)
+
 	Object.assign(nodeInfo, {
 		gainRatio: attributesGainRatio[maxGainRatioIdx],
 		attribute: columnNames[maxGainRatioIdx],
+		attributeValuesFrequencies,
+		mostFrequentAttributeValue,
 	})
 
 	if (continuousAttributes.includes(columnNames[maxGainRatioIdx])) {

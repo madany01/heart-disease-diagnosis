@@ -223,4 +223,56 @@ describe('id3', () => {
 			decision: 0, path: ['outlook', 'humidity'],
 		})
 	})
+
+	it('calculates attributeValuesFrequencies correctly', () => {
+		const data = [
+			['outlook', 'temperature', 'humidity', 'wind', 'decision'],
+			['sunny', 'hot', 'high', 'weak', 0],
+			['sunny', 'hot', 'high', 'strong', 0],
+			['overcast', 'hot', 'high', 'weak', 1],
+			['rain', 'mild', 'high', 'weak', 1],
+			['rain', 'cool', 'normal', 'weak', 1],
+			['rain', 'cool', 'normal', 'strong', 0],
+			['overcast', 'cool', 'normal', 'strong', 1],
+			['sunny', 'mild', 'high', 'weak', 0],
+			['sunny', 'cool', 'normal', 'weak', 1],
+			['rain', 'mild', 'normal', 'weak', 1],
+			['sunny', 'mild', 'normal', 'strong', 1],
+			['overcast', 'mild', 'high', 'strong', 1],
+			['overcast', 'hot', 'normal', 'weak', 1],
+			['rain', 'mild', 'high', 'strong', 0],
+		]
+		const classifier = createId3Classifier(data)
+		const outlookNode = classifier.getRootNode()
+
+		expect(outlookNode.getNodeInfo()).toMatchObject({
+			attribute: 'outlook',
+			attributeValuesFrequencies: new Map([['sunny', 5], ['overcast', 4], ['rain', 5]]),
+			mostFrequentAttributeValue: 'sunny',
+		})
+
+		const humidityNode = outlookNode.getAdjacentNodes().get('sunny')
+
+		expect(humidityNode.getNodeInfo()).toMatchObject({
+			attribute: 'humidity',
+			attributeValuesFrequencies: new Map([['high', 3], ['normal', 2]]),
+			mostFrequentAttributeValue: 'high',
+		})
+
+		expect(classifier.classify({ })).toMatchObject({
+			path: ['outlook', 'humidity'],
+		})
+
+		const windNode = outlookNode.getAdjacentNodes().get('rain')
+
+		expect(windNode.getNodeInfo()).toMatchObject({
+			attribute: 'wind',
+			attributeValuesFrequencies: new Map([['weak', 3], ['strong', 2]]),
+			mostFrequentAttributeValue: 'weak',
+		})
+
+		expect(classifier.classify({ outlook: 'rain' })).toMatchObject({
+			path: ['outlook', 'wind'],
+		})
+	})
 })
