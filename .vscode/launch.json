@@ -9,7 +9,6 @@
 			"request": "launch",
 			"name": "Launch Program",
 			"skipFiles": ["<node_internals>/**"],
-			"runtimeArgs": ["--es-module-specifier-resolution=node"],
 			"program": "${file}"
 		},
 		{
