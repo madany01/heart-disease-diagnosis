@@ -34,6 +34,8 @@ function getIndexesOfColumnsWithIdenticalValues(data) {
 
 function excludeRedundantAttributes(data, columnNames) {
 	const redundantColIndexes = getIndexesOfColumnsWithIdenticalValues(data)
+		.filter(idx => idx !== columnNames.length - 1)
+
 	if (!redundantColIndexes.length) return { data, columnNames }
 
 	const cleanedData = transpose(transpose(data).filter((_, idx) => !redundantColIndexes.includes(idx)))
