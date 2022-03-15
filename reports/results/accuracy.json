@@ -1,0 +1,9 @@
+{
+	"originalDataLength": 209,
+	"trainDataLength": 147,
+	"testDataLength": 62,
+	"bayesTrainAccuracy": 0.8027210884353742,
+	"bayesTestAccuracy": 0.7903225806451613,
+	"id3TrainAccuracy": 0.8367346938775511,
+	"id3TestAccuracy": 0.8064516129032258
+}

@@ -1,0 +1,462 @@
+{
+	"edges": [
+		[0, "no", 1],
+		[0, "yes", 28],
+		[1, true, 2],
+		[1, false, 27, "leaf 🌿"],
+		[28, true, 29],
+		[28, false, 43, "leaf 🌿"],
+		[2, false, 3],
+		[2, true, 26, "leaf 🌿"],
+		[29, "asympt", 30],
+		[29, "atyp_angina", 37],
+		[29, "non_anginal", 40],
+		[3, "atyp_angina", 4],
+		[3, "asympt", 12],
+		[3, "non_anginal", 17],
+		[3, "typ_angina", 23],
+		[30, true, 31],
+		[30, false, 36, "leaf 🌿"],
+		[37, false, 38, "leaf 🌿"],
+		[37, true, 39, "leaf 🌿"],
+		[40, false, 41, "leaf 🌿"],
+		[40, true, 42, "leaf 🌿"],
+		[4, false, 5],
+		[4, true, 11, "leaf 🌿"],
+		[12, false, 13],
+		[12, true, 16, "leaf 🌿"],
+		[17, "normal", 18],
+		[17, "left_vent_hyper", 21, "leaf 🌿"],
+		[17, "st_t_wave_abnormality", 22, "leaf 🌿"],
+		[23, false, 24, "leaf 🌿"],
+		[23, true, 25, "leaf 🌿"],
+		[31, true, 32],
+		[31, false, 35, "leaf 🌿"],
+		[5, "normal", 6],
+		[5, "st_t_wave_abnormality", 9, "leaf 🌿"],
+		[5, "left_vent_hyper", 10, "leaf 🌿"],
+		[13, "normal", 14, "leaf 🌿"],
+		[13, "st_t_wave_abnormality", 15, "leaf 🌿"],
+		[18, true, 19, "leaf 🌿"],
+		[18, false, 20, "leaf 🌿"],
+		[32, "st_t_wave_abnormality", 33, "leaf 🌿"],
+		[32, "normal", 34, "leaf 🌿"],
+		[6, "FALSE", 7, "leaf 🌿"],
+		[6, "TRUE", 8, "leaf 🌿"]
+	],
+	"nodeInfos": {
+		"0": {
+			"decisionsFrequency": [85, 62],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.23908330626189814,
+			"attribute": "exercice_angina",
+			"attributeValuesFrequencies": {
+				"no": 100,
+				"yes": 47
+			},
+			"mostFrequentAttributeValue": "no",
+			"isContinuous": false,
+			"isLeaf": false
+		},
+		"1": {
+			"decisionsFrequency": [76, 24],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.25771230915917864,
+			"attribute": "age",
+			"attributeValuesFrequencies": {
+				"true": 99,
+				"false": 1
+			},
+			"mostFrequentAttributeValue": true,
+			"isContinuous": true,
+			"threshold": 61.5,
+			"isLeaf": false
+		},
+		"2": {
+			"decisionsFrequency": [76, 23],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.26415124477015645,
+			"attribute": "max_heart_rate",
+			"attributeValuesFrequencies": {
+				"false": 98,
+				"true": 1
+			},
+			"mostFrequentAttributeValue": false,
+			"isContinuous": true,
+			"threshold": 95,
+			"isLeaf": false
+		},
+		"3": {
+			"decisionsFrequency": [76, 22],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.08209918808693395,
+			"attribute": "chest_pain_type",
+			"attributeValuesFrequencies": {
+				"atyp_angina": 40,
+				"asympt": 36,
+				"non_anginal": 19,
+				"typ_angina": 3
+			},
+			"mostFrequentAttributeValue": "atyp_angina",
+			"isContinuous": false,
+			"isLeaf": false
+		},
+		"4": {
+			"decisionsFrequency": [38, 2],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.1345598602058925,
+			"attribute": "rest_blood_pressure",
+			"attributeValuesFrequencies": {
+				"false": 37,
+				"true": 3
+			},
+			"mostFrequentAttributeValue": false,
+			"isContinuous": true,
+			"threshold": 115,
+			"isLeaf": false
+		},
+		"5": {
+			"decisionsFrequency": [36, 1],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.009401533645745187,
+			"attribute": "rest_electro",
+			"attributeValuesFrequencies": {
+				"normal": 31,
+				"st_t_wave_abnormality": 5,
+				"left_vent_hyper": 1
+			},
+			"mostFrequentAttributeValue": "normal",
+			"isContinuous": false,
+			"isLeaf": false
+		},
+		"6": {
+			"decisionsFrequency": [30, 1],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.010506347824226813,
+			"attribute": "blood_sugar",
+			"attributeValuesFrequencies": {
+				"FALSE": 28,
+				"TRUE": 3
+			},
+			"mostFrequentAttributeValue": "FALSE",
+			"isContinuous": false,
+			"isLeaf": false
+		},
+		"7": {
+			"decisionsFrequency": [27, 1],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"8": {
+			"decisionsFrequency": [3, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"9": {
+			"decisionsFrequency": [5, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"10": {
+			"decisionsFrequency": [1, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"11": {
+			"decisionsFrequency": [2, 1],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"12": {
+			"decisionsFrequency": [20, 16],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.18138377496086538,
+			"attribute": "rest_blood_pressure",
+			"attributeValuesFrequencies": {
+				"false": 35,
+				"true": 1
+			},
+			"mostFrequentAttributeValue": false,
+			"isContinuous": true,
+			"threshold": 105,
+			"isLeaf": false
+		},
+		"13": {
+			"decisionsFrequency": [20, 15],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.00607421014999496,
+			"attribute": "rest_electro",
+			"attributeValuesFrequencies": {
+				"normal": 32,
+				"st_t_wave_abnormality": 3
+			},
+			"mostFrequentAttributeValue": "normal",
+			"isContinuous": false,
+			"isLeaf": false
+		},
+		"14": {
+			"decisionsFrequency": [18, 14],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"15": {
+			"decisionsFrequency": [2, 1],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"16": {
+			"decisionsFrequency": [0, 1],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"17": {
+			"decisionsFrequency": [16, 3],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.2215204764780385,
+			"attribute": "rest_electro",
+			"attributeValuesFrequencies": {
+				"normal": 16,
+				"left_vent_hyper": 2,
+				"st_t_wave_abnormality": 1
+			},
+			"mostFrequentAttributeValue": "normal",
+			"isContinuous": false,
+			"isLeaf": false
+		},
+		"18": {
+			"decisionsFrequency": [14, 2],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.167845953037399,
+			"attribute": "rest_blood_pressure",
+			"attributeValuesFrequencies": {
+				"true": 9,
+				"false": 7
+			},
+			"mostFrequentAttributeValue": true,
+			"isContinuous": true,
+			"threshold": 132.5,
+			"isLeaf": false
+		},
+		"19": {
+			"decisionsFrequency": [9, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"20": {
+			"decisionsFrequency": [5, 2],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"21": {
+			"decisionsFrequency": [2, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"22": {
+			"decisionsFrequency": [0, 1],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"23": {
+			"decisionsFrequency": [2, 1],
+			"mostFrequentDecision": 0,
+			"gainRatio": 1,
+			"attribute": "rest_blood_pressure",
+			"attributeValuesFrequencies": {
+				"false": 1,
+				"true": 2
+			},
+			"mostFrequentAttributeValue": true,
+			"isContinuous": true,
+			"threshold": 130,
+			"isLeaf": false
+		},
+		"24": {
+			"decisionsFrequency": [0, 1],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"25": {
+			"decisionsFrequency": [2, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"26": {
+			"decisionsFrequency": [0, 1],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"27": {
+			"decisionsFrequency": [0, 1],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"28": {
+			"decisionsFrequency": [9, 38],
+			"mostFrequentDecision": 1,
+			"gainRatio": 0.3512692839384108,
+			"attribute": "max_heart_rate",
+			"attributeValuesFrequencies": {
+				"true": 46,
+				"false": 1
+			},
+			"mostFrequentAttributeValue": true,
+			"isContinuous": true,
+			"threshold": 159,
+			"isLeaf": false
+		},
+		"29": {
+			"decisionsFrequency": [8, 38],
+			"mostFrequentDecision": 1,
+			"gainRatio": 0.2133408095193921,
+			"attribute": "chest_pain_type",
+			"attributeValuesFrequencies": {
+				"asympt": 40,
+				"atyp_angina": 2,
+				"non_anginal": 4
+			},
+			"mostFrequentAttributeValue": "asympt",
+			"isContinuous": false,
+			"isLeaf": false
+		},
+		"30": {
+			"decisionsFrequency": [4, 36],
+			"mostFrequentDecision": 1,
+			"gainRatio": 0.050757775589108704,
+			"attribute": "age",
+			"attributeValuesFrequencies": {
+				"true": 31,
+				"false": 9
+			},
+			"mostFrequentAttributeValue": true,
+			"isContinuous": true,
+			"threshold": 55.5,
+			"isLeaf": false
+		},
+		"31": {
+			"decisionsFrequency": [4, 27],
+			"mostFrequentDecision": 1,
+			"gainRatio": 0.060998905032815076,
+			"attribute": "rest_blood_pressure",
+			"attributeValuesFrequencies": {
+				"true": 25,
+				"false": 6
+			},
+			"mostFrequentAttributeValue": true,
+			"isContinuous": true,
+			"threshold": 155,
+			"isLeaf": false
+		},
+		"32": {
+			"decisionsFrequency": [4, 21],
+			"mostFrequentDecision": 1,
+			"gainRatio": 0.08992995471153796,
+			"attribute": "rest_electro",
+			"attributeValuesFrequencies": {
+				"st_t_wave_abnormality": 5,
+				"normal": 20
+			},
+			"mostFrequentAttributeValue": "normal",
+			"isContinuous": false,
+			"isLeaf": false
+		},
+		"33": {
+			"decisionsFrequency": [2, 3],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"34": {
+			"decisionsFrequency": [2, 18],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"35": {
+			"decisionsFrequency": [0, 6],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"36": {
+			"decisionsFrequency": [0, 9],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"37": {
+			"decisionsFrequency": [1, 1],
+			"mostFrequentDecision": 1,
+			"gainRatio": 1,
+			"attribute": "age",
+			"attributeValuesFrequencies": {
+				"false": 1,
+				"true": 1
+			},
+			"mostFrequentAttributeValue": false,
+			"isContinuous": true,
+			"threshold": 55,
+			"isLeaf": false
+		},
+		"38": {
+			"decisionsFrequency": [0, 1],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"39": {
+			"decisionsFrequency": [1, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"40": {
+			"decisionsFrequency": [3, 1],
+			"mostFrequentDecision": 0,
+			"gainRatio": 0.31127812445913283,
+			"attribute": "age",
+			"attributeValuesFrequencies": {
+				"false": 2,
+				"true": 2
+			},
+			"mostFrequentAttributeValue": false,
+			"isContinuous": true,
+			"threshold": 55,
+			"isLeaf": false
+		},
+		"41": {
+			"decisionsFrequency": [2, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		},
+		"42": {
+			"decisionsFrequency": [1, 1],
+			"mostFrequentDecision": 1,
+			"decision": 1,
+			"isLeaf": true
+		},
+		"43": {
+			"decisionsFrequency": [1, 0],
+			"mostFrequentDecision": 0,
+			"decision": 0,
+			"isLeaf": true
+		}
+	}
+}

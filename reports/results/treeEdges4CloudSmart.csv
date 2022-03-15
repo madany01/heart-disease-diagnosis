@@ -1,0 +1,45 @@
+ID,Label,ParentId,LineLabel
+0,exercice_angina,,
+1,age (<= 61.5),0,no
+28,max_heart_rate (<= 159),0,yes
+2,max_heart_rate (<= 95),1,true
+27,Positive,1,false
+29,chest_pain_type,28,true
+43,Negative,28,false
+3,chest_pain_type,2,false
+26,Positive,2,true
+30,age (<= 55.5),29,asympt
+37,age (<= 55),29,atyp_angina
+40,age (<= 55),29,non_anginal
+4,rest_blood_pressure (<= 115),3,atyp_angina
+12,rest_blood_pressure (<= 105),3,asympt
+17,rest_electro,3,non_anginal
+23,rest_blood_pressure (<= 130),3,typ_angina
+31,rest_blood_pressure (<= 155),30,true
+36,Positive,30,false
+38,Positive,37,false
+39,Negative,37,true
+41,Negative,40,false
+42,Positive,40,true
+5,rest_electro,4,false
+11,Negative,4,true
+13,rest_electro,12,false
+16,Positive,12,true
+18,rest_blood_pressure (<= 132.5),17,normal
+21,Negative,17,left_vent_hyper
+22,Positive,17,st_t_wave_abnormality
+24,Positive,23,false
+25,Negative,23,true
+32,rest_electro,31,true
+35,Positive,31,false
+6,blood_sugar,5,normal
+9,Negative,5,st_t_wave_abnormality
+10,Negative,5,left_vent_hyper
+14,Negative,13,normal
+15,Negative,13,st_t_wave_abnormality
+19,Negative,18,true
+20,Negative,18,false
+33,Positive,32,st_t_wave_abnormality
+34,Positive,32,normal
+7,Negative,6,FALSE
+8,Negative,6,TRUE
