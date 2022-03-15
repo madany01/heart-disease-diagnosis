@@ -17,8 +17,7 @@ function calcAccuracy(dataObjects, classifier) {
 
 const createRandomGenerator = seed => function generateRandom() {
 	// https://stackoverflow.com/a/19303725
-
-	const x = Math.sin(seed++) * 10000
+	const x = Math.sin(seed++) * 100000
 
 	return x - Math.floor(x)
 }
