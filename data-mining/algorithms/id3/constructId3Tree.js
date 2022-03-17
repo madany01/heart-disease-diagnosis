@@ -138,18 +138,41 @@ function constructId3Tree({
 	dataToPartition[maxGainRatioIdx] = transpose(discreteData)[maxGainRatioIdx]
 	dataToPartition = transpose(dataToPartition)
 
-	const node = createNode(nodeInfo)
+	const childNodes = []
 
 	partition2dArray(dataToPartition, maxGainRatioIdx).forEach((partitionedData, colValueName) => {
-		node.addAdjacentNode(
-			colValueName,
-			constructId3Tree({
-				data: partitionedData,
-				columnNames: columnsToSend,
-				continuousAttributes,
-			}),
-		)
+		const edge = colValueName
+		const child = constructId3Tree({
+			data: partitionedData,
+			columnNames: columnsToSend,
+			continuousAttributes,
+		})
+
+		childNodes.push({ child, edge })
 	})
+
+	// check for pruning
+
+	if (childNodes.every(({ child }, idx) => {
+		if (!child.isLeaf()) return false
+
+		if (idx === 0) return true
+
+		return child.getNodeInfo().decision === childNodes[idx - 1].child.getNodeInfo().decision
+	})) {
+		Object.assign(nodeInfo, {
+			isPruned: true,
+			decision: mostFrequentDecision,
+		})
+		return createLeafNode(nodeInfo)
+	}
+
+	const node = createNode(nodeInfo)
+
+	childNodes.forEach(({ child, edge }) => {
+		node.addAdjacentNode(edge, child)
+	})
+
 	return node
 }
 

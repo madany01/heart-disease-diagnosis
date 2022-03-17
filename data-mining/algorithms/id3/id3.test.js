@@ -322,4 +322,86 @@ describe('id3', () => {
 		expect(nodeInfo.attribute).toBe('outlook')
 		expect([...nodeInfo.attributeValuesFrequencies.values()].reduce((acc, v) => acc + v, 0)).toBe(5)
 	})
+
+	it('prunes the tree when child nodes are leaves of the same decision', () => {
+		const data = [
+			['wind', 'outlook', 'decision'],
+			['strong', 'sunny', 0],
+			['strong', 'sunny', 1],
+			['strong', 'sunny', 0],
+			['strong', 'rain', 0],
+			['strong', 'rain', 1],
+			['strong', 'rain', 0],
+			['strong', 'overcast', 0],
+			['strong', 'overcast', 1],
+			['strong', 'overcast', 0],
+			['weak', 'sunny', 1],
+			['weak', 'sunny', 1],
+			['weak', 'sunny', 1],
+			['weak', 'rain', 1],
+			['weak', 'rain', 1],
+			['weak', 'rain', 1],
+			['weak', 'overcast', 1],
+			['weak', 'overcast', 1],
+			['weak', 'overcast', 1],
+		]
+		const classifier = createId3Classifier(data)
+
+		expect(classifier.getTreeNodes().size).toBe(3)
+
+		const root = classifier.getRootNode()
+
+		expect(root.getNodeInfo().attribute).toBe('wind')
+
+		const prunedNode = root.getAdjacentNodes().get('strong')
+
+		expect(prunedNode.isLeaf()).toBe(true)
+
+		expect(prunedNode.getNodeInfo()).toMatchObject({
+			isPruned: true,
+			decision: 0,
+			attribute: 'outlook',
+		})
+
+		expect(classifier.classify({ wind: 'strong' })).toMatchObject({
+			decision: 0,
+			path: ['wind'],
+		})
+		expect(classifier.classify({ wind: 'weak' })).toMatchObject({
+			decision: 1,
+			path: ['wind'],
+		})
+	})
+
+	it('does not prune the tree when child nodes are of different decision', () => {
+		const data = [
+			['outlook', 'decision'],
+			['sunny', 0],
+			['sunny', 1],
+			['sunny', 0],
+			['rain', 1],
+			['rain', 0],
+			['rain', 1],
+			['overcast', 0],
+			['overcast', 1],
+			['overcast', 0],
+		]
+		const classifier = createId3Classifier(data)
+
+		expect(classifier.getTreeNodes().size).toBe(4)
+		expect(classifier.getRootNode().isLeaf()).toBe(false)
+	})
+
+	it('does not prune the tree when child nodes are not leaved', () => {
+		const data = [
+			['a1', 'a1', 'decision'],
+			['0', '0', 0],
+			['0', '1', 1],
+			['1', '1', 0],
+			['1', '0', 1],
+		]
+		const classifier = createId3Classifier(data)
+
+		expect(classifier.getTreeNodes().size).toBe(7)
+	})
 })
