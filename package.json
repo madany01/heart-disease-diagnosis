@@ -1,36 +1,36 @@
 {
-	"name": "data-mining-algorithms",
-	"version": "1.0.0",
-	"description": "",
-	"main": "src/index.js",
-	"scripts": {
-		"nodeES6": "node  --es-module-specifier-resolution=node",
-		"test": "jest",
-		"test-watchAll": "jest --watchAll",
-		"build": "webpack --progress",
-		"watch": "webpack --progress --watch",
-		"serve": "webpack serve --open"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/madany01/data-mining-algorithms.git"
-	},
-	"author": "Ahmad Madany",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/madany01/data-mining-algorithms/issues"
-	},
-	"homepage": "https://github.com/madany01/data-mining-algorithms#readme",
-	"devDependencies": {
-		"@babel/core": "^7.17.5",
-		"@babel/preset-env": "^7.16.11",
-		"@types/jest": "^27.4.1",
-		"csv-loader": "^3.0.3",
-		"eslint": "^8.10.0",
-		"eslint-config-airbnb-base": "^15.0.0",
-		"eslint-plugin-import": "^2.25.4",
-		"jest": "^27.5.1",
-		"webpack": "^5.70.0",
-		"webpack-cli": "^4.9.2"
-	}
+  "name": "heart-disease-diagnosis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "nodeES6": "node  --es-module-specifier-resolution=node",
+    "test": "jest",
+    "test-watchAll": "jest --watchAll",
+    "build": "webpack --progress",
+    "watch": "webpack --progress --watch",
+    "serve": "webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madany01/heart-disease-diagnosis.git"
+  },
+  "author": "Ahmad Madany",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/madany01/heart-disease-diagnosis/issues"
+  },
+  "homepage": "https://github.com/madany01/heart-disease-diagnosis#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@types/jest": "^27.4.1",
+    "csv-loader": "^3.0.3",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "jest": "^27.5.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  }
 }

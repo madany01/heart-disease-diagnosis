@@ -1,1 +1,1 @@
-# data-mining-algorithms
+# heart-disease-diagnosis
